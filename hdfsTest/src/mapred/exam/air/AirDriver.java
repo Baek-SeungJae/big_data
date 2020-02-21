@@ -17,7 +17,7 @@ public class AirDriver {
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 		// 1. 맵리듀스를 처리하기 위한 job 생성
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Stock");
+		Job job = new Job(conf, "Air");
 
 		// 2. 실제 job을 처리하기 위한 클래스가 어떤 클래스인지 등록
 		// 실제 우리가 구현한 Mapper, Reducer, Driver를 등록
