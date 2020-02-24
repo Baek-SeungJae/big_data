@@ -11,7 +11,7 @@ public class AirMultipleReducer extends Reducer<Text, IntWritable, Text, IntWrit
 	IntWritable resultVal = new IntWritable();
 	Text resultKey = new Text();
 	MultipleOutputs<Text, IntWritable> multiOut;
-	
+
 	@Override
 	protected void setup(Reducer<Text, IntWritable, Text, IntWritable>.Context context)
 			throws IOException, InterruptedException {
@@ -23,14 +23,14 @@ public class AirMultipleReducer extends Reducer<Text, IntWritable, Text, IntWrit
 			throws IOException, InterruptedException {
 		multiOut.close();
 	}
-	
+
 	@Override
 	protected void reduce(Text key, Iterable<IntWritable> values,
 			Reducer<Text, IntWritable, Text, IntWritable>.Context context)
 			throws java.io.IOException, InterruptedException {
 		String[] data = key.toString().split(",");
 		resultKey.set(data[1]);
-		
+
 		if (data[0].equals("dep")) {
 			int sum = 0;
 			for (IntWritable value : values) {

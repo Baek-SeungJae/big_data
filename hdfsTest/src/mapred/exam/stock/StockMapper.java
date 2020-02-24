@@ -21,15 +21,15 @@ public class StockMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 		// value는 입력데이터의 한 라인에 해당하는 문장 ex) read a book
 			StringTokenizer st = new StringTokenizer(value.toString(),",");	
 
-			String exchange = st.nextToken();
-			String stock_symbol = st.nextToken();
+			st.nextToken();
+			st.nextToken();
 			String date = st.nextToken();
 			String stock_price_open = st.nextToken();
-			String stock_price_high = st.nextToken();
-			String stock_price_low = st.nextToken();
+			st.nextToken();
+			st.nextToken();
 			String stock_price_close = st.nextToken();
-			String stock_volume = st.nextToken();
-			String stock_price_adj_close = st.nextToken();
+			st.nextToken();
+			st.nextToken();
 			try {
 				if(Double.parseDouble(stock_price_close)>Double.parseDouble(stock_price_open)) {
 					outputKey.set(date.substring(0, 4));

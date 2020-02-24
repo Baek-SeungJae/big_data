@@ -41,6 +41,7 @@ public class AirMultipleDriver extends Configured implements Tool {
 		job.waitForCompletion(true);
 		return 0;
 	}
+
 	public static void main(String[] args) throws Exception {
 		ToolRunner.run(new Configuration(), new AirMultipleDriver(), args);
 	}
