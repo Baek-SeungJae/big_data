@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- 템플릿을 정의(main화면 레이아웃 - 사용자페이지 템플릿) 
+		1. mainTemplate이란 이름으로 템플릿을 등록하세요
+		2. 첫 번째 페이지가 보이도록 index라는 이름의 definition을 정의하세요.
+	-->
+	<definition name="mainTemplate" template="/WEB-INF/layout/mainLayout.jsp">
+		<put-attribute name="top" value="/WEB-INF/include/top.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/include/content.jsp"/>
+	</definition>	
+
+	<definition name="index" extends="mainTemplate">
+		<put-attribute name="top" value="/WEB-INF/include/top.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/include/content.jsp"/>
+	</definition>
+	
+	<!-- admin페이지 
+		1. adminTemplate이란 이름으로 어드민페이지의 템플릿을 등록하세요
+		2. 어드민 페이지의 첫 번째 페이지가 보이도록 admin/index라는 이름의 definition을 정의하세요.
+	-->
+	<definition name="adminTemplate" template="/WEB-INF/layout/adminLayout.jsp">
+		<put-attribute name="top" value="/WEB-INF/include/top.jsp"/>
+		<put-attribute name="left" value="/WEB-INF/include/adminleft.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/include/admincontent.jsp"/>
+	</definition>	
+
+	<definition name="admin/index" extends="adminTemplate">
+		<put-attribute name="top" value="/WEB-INF/include/top.jsp"/>
+		<put-attribute name="left" value="/WEB-INF/include/adminleft.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/include/admincontent.jsp"/>
+	</definition>	
+	
+	
+</tiles-definitions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
