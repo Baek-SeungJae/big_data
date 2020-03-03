@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	 -->
+	<typeAliases>
+		<typeAlias type="kr.multi.bigdataShop.product.ProductDTO" alias="product"/>
+	</typeAliases>
+	
+	<mappers>
+		<!-- src부터 인식 -->
+		<mapper resource="mapper/product.xml"/>
+	</mappers>
+</configuration>

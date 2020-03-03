@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.multi.bigdataShop.product">
+	<select id="hitproduct" resultType="product">
+		select *
+		from(
+		select
+		PRD_NO,PRD_NM,CATEGORY_NO,PRD_DES,SELL_PRC_UNIT,rank() over(order by
+		SELL_START_DT
+		desc),SELL_END_DT,DLV_CONSTRAINT,AS_FLG,RETURN_FLG,IMG_ORG_FILE_NM,IMG_GEN_FILE_NM,REG_ID,REG_DTM
+		from tb_product
+		)
+		 <![CDATA[
+		where rownum<=3
+		]]>
+	</select>
+
+	<select id="categorysearch" parameterType="String" resultType="product">
+		select * from tb_product where category_no = #{category}
+	</select>
+
+	<select id="allsearch" resultType="product">
+		select * from tb_product
+	</select>
+</mapper>

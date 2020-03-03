@@ -38,9 +38,16 @@
 	</beans:bean>
 	
 	<!-- ==================mybatis연결========================== -->
-	
-	
-	
+	<!-- 2) spring에서 mybatis의 핵심클래스인 SqlSession을 사용할 수 있도록 생서하는 객체 -->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="ds"/>
+		<beans:property name="configLocation" value="/WEB-INF/config/mybatis-config.xml"/>
+	</beans:bean>
+
+	<!-- 3) mybatis의 핵심클래스를 등록 -->
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg ref="sqlSessionFactory"/>
+	</beans:bean>	
 	
 	<!-- ======================어노테이션============================== -->
 	<context:component-scan base-package="kr" />

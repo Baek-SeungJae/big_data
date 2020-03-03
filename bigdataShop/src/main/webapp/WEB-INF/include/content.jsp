@@ -1,3 +1,5 @@
+<%@page import="kr.multi.bigdataShop.product.ProductDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,6 +21,7 @@
 </style>
 </head>
 <body>
+<% List<ProductDTO> newproduct = (List<ProductDTO>)request.getAttribute("newproduct"); %>
 	<br>
 	<div class="row">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -63,39 +66,21 @@
 	<br />
 	<br />
 	<div class="row">
+		<% for(int i=0; i<3; i++){
+			ProductDTO row = newproduct.get(i);
+		%>
 		<div class="col-sm-4">
-				<div class="panel panel-primary">
-					<div class="panel-heading">원피스1</div>
-					<div class="panel-body">
-						<a href="#"><img
-							src="/bigdataShop/images/product/dress_images1.jpg"
-							class="img-responsive" style="width: 70%;" alt="Image"></a>
-					</div>
-					<div class="panel-footer">판매금액:27000</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading"><%=row.getPrd_nm()%></div>
+				<div class="panel-body">
+					<a href="#"><img
+						src="/bigdataShop/images/product/<%=row.getImg_org_file_nm()%>"
+						class="img-responsive" style="width: 70%;" alt="Image"></a>
 				</div>
+				<div class="panel-footer">판매금액:<%=row.getSell_prc_unit()%></div>
+			</div>
 		</div>
-		<div class="col-sm-4">
-				<div class="panel panel-primary">
-					<div class="panel-heading">원피스2</div>
-					<div class="panel-body">
-						<a href="#"><img
-							src="/bigdataShop/images/product/dress_images2.jpg"
-							class="img-responsive" style="width: 70%;" alt="Image"></a>
-					</div>
-					<div class="panel-footer">판매금액:27000</div>
-				</div>
-		</div>
-		<div class="col-sm-4">
-				<div class="panel panel-primary">
-					<div class="panel-heading">원피스3</div>
-					<div class="panel-body">
-						<a href="#"><img
-							src="/bigdataShop/images/product/dress_images3.jpg"
-							class="img-responsive" style="width: 70%;" alt="Image"></a>
-					</div>
-					<div class="panel-footer">판매금액:27000</div>
-				</div>
-		</div>
+		<%}%>
 	</div>
 </body>
 </html>

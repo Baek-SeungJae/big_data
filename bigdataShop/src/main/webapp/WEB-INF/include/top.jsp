@@ -27,7 +27,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/bigdataShop/product/list.do">Home</a></li>
+        <li class="active"><a href="/bigdataShop/product/list.do?category=all">Home</a></li>
         <li><a href="/bigdataShop/product/list.do?category=CAT000000001">DRESS</a></li>
         <li><a href="/bigdataShop/product/list.do?category=CAT000000004">OUTER</a></li>
         <li><a href="/bigdataShop/product/list.do?category=CAT000000002">TOP</a></li>

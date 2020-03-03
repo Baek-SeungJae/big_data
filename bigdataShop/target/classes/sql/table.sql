@@ -167,6 +167,7 @@ CREATE TABLE TB_DLV_CORP (
        PRIMARY KEY (DLV_CORP_NO)
 );
 
+create sequence ord_seq;
 
 
 

@@ -17,6 +17,11 @@
 		<put-attribute name="content" value="/WEB-INF/include/content.jsp"/>
 	</definition>
 	
+	<definition name="product/list" extends="mainTemplate">
+		<put-attribute name="top" value="/WEB-INF/include/top.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/product/prdlist.jsp"/>
+	</definition>
+	
 	<!-- admin페이지 
 		1. adminTemplate이란 이름으로 어드민페이지의 템플릿을 등록하세요
 		2. 어드민 페이지의 첫 번째 페이지가 보이도록 admin/index라는 이름의 definition을 정의하세요.
