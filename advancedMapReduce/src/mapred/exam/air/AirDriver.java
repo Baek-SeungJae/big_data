@@ -1,8 +1,7 @@
 package mapred.exam.air;
 
-import java.io.IOException;
-
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -10,35 +9,44 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
 
 
-public class AirDriver {
-	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
-		// 1. 맵리듀스를 처리하기 위한 job 생성
-		Configuration conf = new Configuration();
-		Job job = new Job(conf, "Air");
 
-		// 2. 실제 job을 처리하기 위한 클래스가 어떤 클래스인지 등록
-		// 실제 우리가 구현한 Mapper, Reducer, Driver를 등록
+public class AirDriver extends Configured implements Tool {
+	@Override
+	public int run(String[] optionlist) throws Exception {
+		GenericOptionsParser parser = new GenericOptionsParser(getConf(), optionlist);
+		String[] otherArgs = parser.getRemainingArgs();
+		Job job = new Job(getConf(), "Air");
+		
 		job.setMapperClass(AirMapper.class);
 		job.setReducerClass(AirReducer.class);
 		job.setJarByClass(AirDriver.class);
-
-		// 3. HDFS에서 읽고 쓸 input데이터와 output데이터의 포맷을 정의
-		// => hdfs에 텍스트파일의 형태로 input/output을 처리
+		
 		job.setInputFormatClass(TextInputFormat.class);
-		job.setOutputFormatClass(TextOutputFormat.class);
-
-		// 4. 리듀스의 출력데이터에 대한 key와 value의 타입을 정의
+		job.setOutputFormatClass(TextOutputFormat.class);	
+		
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
-
-		// 5. HDFS에 저장된 파일을 읽고 쓸 수 있도록 Path객체를 정의
-		FileInputFormat.addInputPath(job, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-
-		// 6. 1~5번까지 설정한 내용을 기반으로 job이 실행되도록 명령
+		
+		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+		
+		MultipleOutputs.addNamedOutput(job, "1980", TextOutputFormat.class, Text.class, IntWritable.class);
+		MultipleOutputs.addNamedOutput(job, "1990", TextOutputFormat.class, Text.class, IntWritable.class);
+		MultipleOutputs.addNamedOutput(job, "2000", TextOutputFormat.class, Text.class, IntWritable.class);
+		
 		job.waitForCompletion(true);
+		return 0;
+	}
+	
+	public static void main(String[] args) throws Exception {
+			
+		ToolRunner.run(new Configuration(), new AirDriver(), args);
 	}
 }

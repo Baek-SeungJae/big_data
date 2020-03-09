@@ -18,7 +18,7 @@ public class AirMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 			line[1] = "0" + line[1];
 		try {
 			if (Integer.parseInt(line[15]) > 0) {
-				outputKey.set(line[0] + "." + line[1]);
+				outputKey.set(line[0]+","+line[0] + "." + line[1]);
 				context.write(outputKey, outputVal);
 			}
 		} catch (NumberFormatException e) {
