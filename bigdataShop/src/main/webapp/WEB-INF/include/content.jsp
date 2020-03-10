@@ -22,6 +22,7 @@
 </head>
 <body>
 <% List<ProductDTO> newproduct = (List<ProductDTO>)request.getAttribute("newproduct"); %>
+<% List<ProductDTO> hitproduct = (List<ProductDTO>)request.getAttribute("hitproduct"); %>
 	<br>
 	<div class="row">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -31,25 +32,22 @@
 				<li data-target="#myCarousel" data-slide-to="1"></li>
 				<li data-target="#myCarousel" data-slide-to="2"></li>
 				<li data-target="#myCarousel" data-slide-to="3"></li>
+				<li data-target="#myCarousel" data-slide-to="4"></li>
 			</ol>
 	
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
 				<div class="item active" style="height: 250px">
-					<img src="/bigdataShop/images/product/dress_images1.jpg" alt="Chania" >
+					<img src="/bigdataShop/images/product/<%=hitproduct.get(0).getImg_org_file_nm()%>" alt="Chania" >
 				</div>
-	
+			<% for(int i=1; i<5;i++){
+				ProductDTO row = hitproduct.get(i);
+				%>
 				<div class="item" style="height: 250px">
-					<img src="/bigdataShop/images/product/acc_image5.jpg" alt="Chania" width="460" height="345">
+					<img src="/bigdataShop/images/product/<%=row.getImg_org_file_nm()%>" alt="Chania" width="460" height="345">
 				</div>
-	
-				<div class="item" style="height: 250px">
-					<img src="/bigdataShop/images/product/bottom_image3.jpg" alt="Flower" width="460" height="345">
-				</div>
-	
-				<div class="item" style="height: 250px">
-					<img src="/bigdataShop/images/product/outer_image5.gif" alt="Flower" width="460" height="345">
-				</div>
+				
+			<%} %>
 			</div>
 	
 			<!-- Left and right controls -->

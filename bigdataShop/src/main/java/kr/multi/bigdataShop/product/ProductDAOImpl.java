@@ -22,13 +22,12 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public List<ProductDTO> hitproduct() {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("kr.multi.bigdataShop.product.hitproduct");
 	}
 
 	@Override
 	public List<ProductDTO> newproduct() {
-		return sqlSession.selectList("kr.multi.bigdataShop.product.hitproduct");
+		return sqlSession.selectList("kr.multi.bigdataShop.product.newproduct");
 	}
 
 	@Override

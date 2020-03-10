@@ -21,6 +21,9 @@ public class IndexController{
 		ModelAndView mav = new ModelAndView();
 		List<ProductDTO> newproduct = productservice.newproduct();
 		mav.addObject("newproduct", newproduct);
+		List<ProductDTO> hitproduct = productservice.hitproduct();
+		mav.addObject("hitproduct", hitproduct);
+		
 		mav.setViewName("index");
 		return mav;
 	}
