@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Bootstrap Example</title>
@@ -39,11 +40,13 @@ footer {
 </head>
 <body>
 	<div id="outer">
+		<!-- 여기에 top메뉴를 연결하세요 -->
 		<tiles:insertAttribute name="top"></tiles:insertAttribute>
 		<div class="container">
+			<!-- 여기에 content.jsp가 연결되도록 tiles설정 파일을 보고 작성하세요. -->
 			<tiles:insertAttribute name="content"></tiles:insertAttribute>
-		</div> 
-		
+		</div>
+
 
 		<footer class="container-fluid text-center">
 			<p>Online Store Copyright</p>

@@ -10,25 +10,26 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.multi.bigdataShop.product.ProductDTO;
 import kr.multi.bigdataShop.product.ProductService;
 
-
 @Controller
 public class IndexController{
 	@Autowired
-	ProductService productservice;
-	
+	ProductService service;
 	@RequestMapping("/index.do")
 	public ModelAndView main(){
+		System.out.println("어노테이션 기반");
+		List<ProductDTO> hitProduct = service.hitproduct();
+		List<ProductDTO> newProduct = service.newproduct();
 		ModelAndView mav = new ModelAndView();
-		List<ProductDTO> newproduct = productservice.newproduct();
-		mav.addObject("newproduct", newproduct);
-		List<ProductDTO> hitproduct = productservice.hitproduct();
-		mav.addObject("hitproduct", hitproduct);
-		
+		mav.addObject("hitProduct", hitProduct);
+		mav.addObject("newProduct", newProduct);
+		System.out.println(hitProduct);
+		System.out.println(newProduct);
 		mav.setViewName("index");
 		return mav;
 	}
 	@RequestMapping("/admin/index.do")
 	public String adminMain(){
+		System.out.println("어노테이션 기반");
 		return "admin/index";
 	}
 }

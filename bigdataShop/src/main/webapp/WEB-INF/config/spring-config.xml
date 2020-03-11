@@ -16,7 +16,7 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/images/**" location="/WEB-INF/static/images/" />
 	<resources mapping="/common/**" location="/WEB-INF/static/common/" />
-
+	<resources mapping="/jQCloud-master/**" location="/WEB-INF/jQCloud-master/" />
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<!-- ==============뷰리졸버에 대한 등록================================= -->
@@ -38,39 +38,49 @@
 	</beans:bean>
 	
 	<!-- ==================mybatis연결========================== -->
-	<!-- 2) spring에서 mybatis의 핵심클래스인 SqlSession을 사용할 수 있도록 생서하는 객체 -->
-	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	
+	<!-- spring과 mybatis를 연결해주는 클래스 -->
+	<beans:bean id="sqlSessionFactory"
+			class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="ds"/>
-		<beans:property name="configLocation" value="/WEB-INF/config/mybatis-config.xml"/>
+		<beans:property name="configLocation"
+			value="/WEB-INF/config/mybatis-config.xml"/>
 	</beans:bean>
-
-	<!-- 3) mybatis의 핵심클래스를 등록 -->
-	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	
+	<!-- mybatis의 핵심클래스(spring jdbc에서 JdbcTemplate의 역할을 하는 클래스) -->
+	<beans:bean id="sqlSession"	
+			class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg ref="sqlSessionFactory"/>
-	</beans:bean>	
+	</beans:bean>
+	
 	
 	<!-- ======================어노테이션============================== -->
 	<context:component-scan base-package="kr" />
 	<context:component-scan base-package="main" />
 	
+	
+	
 	<!-- ==================tiles를 사용하기 위한 설정===================== -->
 	<!-- 1. tiles의 설정파일의 정보를 등록 -->
-	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	<beans:bean id="tilesConfigurer"
+	 class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
-				<!-- <beans:value>/WEB-INF/config/main-tiles.xml</beans:value> -->
-				<!-- 앞으로는 모든 설정 파일을 인식할 수 있도록 아래와 같이 설정해준다. -->
 				<beans:value>/WEB-INF/**/*-tiles.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-	
 	<!-- 2. ViewResolver가 기본 jsp로 뷰를 생성하지 않고 tiles프레임워크를 통해서 뷰를
 	        생성할 수 있도록 뷰리졸버를 등록 -->
-
-	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
-		<beans:property name="order" value="1" />
+	<beans:bean id="tilesViewResolver"
+	class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass"
+		value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+		<beans:property name="order" value="1"/>
 	</beans:bean>
-	
+	<!-- ======================파일업로드============================ -->
+	<beans:bean id="multipartResolver"
+			class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="4000000"/>	
+	</beans:bean>
 </beans:beans>

@@ -18,7 +18,7 @@ public class PatternTest02 {
 		//String patternStr = "[^4-8]";			// 7. ^가 대괄호 안에 있으면 부정의 의미
 		//String patternStr = "[^c-j]";			// c-j를 제외
 		//String patternStr = "[a-zA-Z0-9]";	// 영문자 숫자
-		String patternStr = "[^a-zA-Z0-9 ]";		// 영문자 숫자 제외
+		String patternStr = "[^a-zA-Z0-9 ]+";		// 영문자 숫자 제외
 		//String patternStr = "[가-힣]";
 		equalsPattern(str, patternStr);
 	}

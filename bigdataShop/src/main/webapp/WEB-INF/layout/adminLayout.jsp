@@ -42,12 +42,15 @@ footer {
 <body>
 	<div id="outer" >
 		<div id="header" >
+			<!-- 여기에 top메뉴가 연결되도록 하세요 -->
 			<tiles:insertAttribute name="top"></tiles:insertAttribute>
 		</div>
 		<div id="left" class="col-sm-2 sidenav">
-			<tiles:insertAttribute name="left"></tiles:insertAttribute>
+			<!-- 여기에 adminleft메뉴가 연결되도록 하세요 -->
+			<tiles:insertAttribute name="menu"></tiles:insertAttribute>
 		</div>
 		<div id="content" class="col-sm-10">
+			<!-- 여기에 admincontent가 연결되도록 하세요 -->
 			<tiles:insertAttribute name="content"></tiles:insertAttribute>
 		</div>
 	</div>

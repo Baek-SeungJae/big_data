@@ -11,9 +11,9 @@ public class PatternTest05 {
 		
 		//String str = "aaaaa aaabc iiiii iiibc aiabc";
 		//String patternStr = "(a|i){3}bc";
-		String str = "adsf111 a1 b5 b55 aaa5 qa5 a5";
-		String patternStr = "([a-z][0-9])";
-		
+		String str = "사람은 0012이 asd123가";
+		//String patternStr = "([a-z][0-9])";
+		String patternStr = "[a-z0-9가-힣]+[^은는이가 ]";
 		equalsPattern(str, patternStr);
 	}
 	
