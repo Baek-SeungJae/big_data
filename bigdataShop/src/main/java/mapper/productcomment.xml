@@ -12,7 +12,7 @@
 	
 	<select id="result" resultType="commentresult">
 		select *
-		from (select word, count from comment_result order by count desc)
+		from (select word, sum(count) as "count" from comment_result group by word order by sum(count) desc)
 		<![CDATA[
 		where ROWNUM<=10
 		]]>

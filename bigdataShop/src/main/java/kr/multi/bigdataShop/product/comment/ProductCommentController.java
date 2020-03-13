@@ -26,10 +26,12 @@ public class ProductCommentController {
 		if(year==null||month==null) {
 			dto = commentservice.commentResult();
 		}
+		else if(year==""||month=="") {
+			dto = commentservice.commentResult();
+		}
 		else {
 			dto = commentservice.commentResult(year,month);
 		}
-		System.out.println(dto);
 		mav.addObject("commentresult", dto);
 		mav.setViewName("comment/result");
 		return mav;
