@@ -22,18 +22,25 @@
 <script type="text/javascript"
 	src="/bigdataShop/jQCloud-master/jqcloud/jqcloud-1.0.4.js"></script>
 <script type="text/javascript">
-		var word_array = [];
-		size=${commentresult.size()}
 
-		<c:forEach var="commentresult" items="${commentresult}">
-			word_array.push({
-				text : "${commentresult.word}",
-				weight : "${commentresult.count}"
-			})
-		</c:forEach>
-	$(function() {
-		$("#example").jQCloud(word_array);
-	});
+$(function(){
+	var word_array = [];
+	size=${commentresult.size()}
+
+	<c:forEach var="commentresult" items="${commentresult}">
+		word_array.push({
+			text : "${commentresult.word}",
+			weight : "${commentresult.count}"
+		})
+	</c:forEach>
+$(function() {
+	$("#example").jQCloud(word_array);
+});
+});
+	
+	
+	
+	
 </script>
 <script type="text/javascript">
 	year = "${year}";
@@ -170,9 +177,7 @@
 
 		</div>
 		<div class="col-sm-7">
-			<div id="example"
-				style="width: 550px; height: 350px; border: 1px solid #ccc;">
-
+			<div id="example" style="width: 550px;border: 1px solid #ccc;">
 			</div>
 		</div>
 	</div>

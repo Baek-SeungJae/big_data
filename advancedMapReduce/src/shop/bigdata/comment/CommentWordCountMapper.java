@@ -28,7 +28,5 @@ public class CommentWordCountMapper extends Mapper<LongWritable, Text, Text, Int
 			outputKey.set(year+"\t"+month+"\t"+m.group());
 			context.write(outputKey, outputVal);
 		}
-		
-
 	}
 }
