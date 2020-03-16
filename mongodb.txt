@@ -1,0 +1,105 @@
+<<용어>>
+collection : 테이블
+document : 레코드
+field : 컬럼
+_id : 기본키
+
+
+<<명령어>>
+show dbs
+use mydb
+
+<<기본작업>>
+1. collection(rdbms에서 테이블)을 만들어야 함
+	=> 관계형 DB처럼 스키마를 정의하지 않는다.
+	1) 종류
+	- capped collection : 고정사이즈를 주고 생성하는 컬렉션, 미리 지정한 저장공간이 모두 사용되면 맨 처음에 저장된 데이터가 삭제되고 공간으로 활용
+	- non capped collection : 일반적인 컬렉션
+	2) collection 관리
+	[생성]
+	db.createCollection("컬렉션명", {옵션list})
+	=> 각각의 옵션을 설정해서 작업(json)
+	[삭제]
+	db.컬렉션명.drop()
+	[이름 수정]
+	db.컬렉션명.renameColleciont("새컬렉션명")
+
+2. mongodb에 insert
+	[구문]
+	db.컬렉션명.insertOne({데이터...})
+	db.컬렉션명.insertMany({데이터...})
+	db.컬렉션명.insert({데이터...})
+	- document(관계형db에서 레코드개념)에 대한 정보는 json의 형식으로 작성
+	- mongodb에서 document를 삽입하면 자동으로 _id가 생성 - 기본키의 역할
+	"_id" : ObjectId("5e6ee7bc3eed81598ecebafb") : 현재timestamp + machine Id + mongodb프로세스Id + 순차번호
+
+3. mongodb에 update
+	=> document 수정
+	=> 조건을 적용해서 수정하기 위한 코드도 json으로 구현
+
+	[update를 위한 명령어]
+	$set: 해당필드의 값을 변경(업데이트하기위한 핵심 명령어)
+	$inc: 해당필드에 저장된 숫자의 값을 증가
+	(조건,$set,옵션)
+	$unset : 원하는 필드를 삭제할 수 있다.
+
+	[옵션]
+	multi => true로 설정하지 않으면 조건에 맞는 document중 첫 번째 document만 update
+	
+	[구문]
+	db.컬렉션명.update({조건필드:값}),      //sql의 update문으로 치면 where절
+			{$set{수정할필드:수정값}}
+	
+4. mongodb에서 배열 관리
+	[데이터수정]
+	db.score.update({id:"jang"},{$set:{info:{city:["서울","안양"], movie:["겨울왕국2","극한직업","쉬리"]}}})
+	
+	[배열에서 사용할 수 있는 명령어]
+	$addToSet
+	db.score.update({id:"jang"},{$addToSet:{"info.city":"인천"}})
+	//중복허용x
+
+	$push
+	db.score.update({id:"jang"},{$push:{"info.city":"천안"}})
+	//중복허용
+
+	$pop
+	db.score.update({id:"jang"},{$pop:{"info.city":1}})
+	db.score.update({id:"jang"},{$pop:{"info.city":-1}})
+	//배열에서 요소를 제거할 때 사용.. 1은 마지막요소 -1은 첫번째요소
+
+	$each : addToSet이나 push에서 사용할 수 있다.
+		여러 개를 배열에 추가할 때 사용
+	db.score.update({id:"jang"},{$push:{"info.city":{$each:["천안","가평","군산"]}}})
+	
+	$sort : 정렬(1:오름차순, -1:내림차순)
+	db.score.update({id:"jang"},{$push:{"info.city":{$each:["천안","가평","군산"],$sort:1}}})
+
+	$pull
+	db.score.update({id:"jang"},{$pull:{"info.city":"천안"}})
+	//천안을 다 지운다.
+	db.score.update({id:"jang"},{$pull:{"info.city":["가평","군산"]}})
+	//가평, 군산을 지울 때 이렇게 하면 안된다.
+	db.score.update({id:"jang"},{$pullAll:{"info.city":["가평","군산"]}})
+	// 이렇게 가야한다.
+
+db.score.update({id:"song"},{$push:{"history":{$each:["영업1팀","총무","기획실"]}}})
+db.score.update({id:"jang"},{$push:{"history":{$each:["전략팀","총무","전산"]}}})
+db.score.update({id:"hong"},{$push:{"history":{$each:["영업1팀","기획실","전산"]}}})
+db.score.update({id:"song"},{$push:{"history":"자금부"}})
+db.score.update({id:"jang"},{$pop:{"history":1}})
+db.score.update({servlet:100},{$inc:{bonus:3000}},{upsert: true, multi:true})
+db.score.update({id:"song"},{$addToSet:{"lang.ms":{$each:["visual basic","asp",".net"]}}})
+
+db.createCollection("board")
+db.board.insert({no:"001",id:"kim",content:"게시글1 내용1",count:10,writedate:"20/03/01"})
+db.board.insert({no:"002",id:"lee",content:"게시글2 내용2",count:20,writedate:"20/03/02"})
+db.board.insert({no:"003",id:"park",content:"게시글3 내용3",count:30,writedate:"20/03/03"})
+db.board.insert({no:"004",id:"jang",content:"게시글4 내용4",count:40,writedate:"20/03/04"})
+db.board.insert({no:"005",id:"song",content:"게시글5 내용5",count:50,writedate:"20/03/05"})
+
+db.board.update({no:"002"},{$push:{comment:{content:"댓글1 내용1", count1:1, count2:11,writedate:"20/03/10"}}})
+db.board.update({no:"002"},{$push:{"comment":{content:"댓글2 내용2", count1:2, count2:22,writedate:"20/03/11"}}})
+db.board.update({no:"002"},{$push:{"comment":{content:"댓글3 내용3", count1:3, count2:33,writedate:"20/03/12"}}})
+
+db.board.update({no="002"},{$push:{"comment":[{content:"댓글1 내용1", count1:1, count2:11,writedate:"20/03/10"}]}})
